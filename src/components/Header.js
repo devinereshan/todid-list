@@ -1,49 +1,59 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import TopBar from "./TopBar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  box: {
-    padding: 10,
-  },
   container: {
-    display: "flex",
-    justifyContent: "center",
+    padding: "30px 10px",
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
   catchPhrase: {
     fontSize: "1.4em",
     fontStyle: "oblique",
   },
   catchPhraseBeginning: {
-    marginLeft: "-10vw",
+    marginLeft: "-20vw",
   },
   catchPhraseEnding: {
-    marginLeft: "10vw",
+    marginLeft: "20vw",
   },
 }));
 
 export default function Header(props) {
   const classes = useStyles();
   return (
-    <>
+    <Box>
       <TopBar />
-      <Box className={classes.box}>
+      {/* <Box> */}
         <Container maxWidth="md" className={classes.container}>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            className={classes.catchPhrase}
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
           >
             <div className={classes.catchPhraseBeginning}>
-              It's not what you do,
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                className={classes.catchPhrase}
+              >
+                It's not what you do,
+              </Typography>
             </div>
             <div className={classes.catchPhraseEnding}>
-              it's what you did...
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                className={classes.catchPhrase}
+              >
+                it's what you did...
+              </Typography>
             </div>
-          </Typography>
+          </Grid>
         </Container>
-      </Box>
-    </>
+      {/* </Box> */}
+    </Box>
   );
 }
