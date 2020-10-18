@@ -1,6 +1,12 @@
-import React from "react";
-import { Button, TextField } from "@material-ui/core";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Radio from "@material-ui/core/Radio";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,41 +16,93 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 2, 2),
   },
+  radioContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: theme.spacing(1),
+  },
 }));
 
 export default function AddItemForm(props) {
-  const [todidit, setTodidit] = React.useState(null);
-  const handleChange = (event) => {
-    setTodidit(event.target.value);
-  };
+  const [todidText, setTodid] = useState("");
+  const [todiderations, setTodiderations] = useState("1");
+
   const classes = useStyles();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleTextChange = (event) => {
+    setTodid(event.target.value);
+  };
 
-    alert(todidit);
+  const handleRadioChange = (event) => {
+    setTodiderations(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    console.log("in handle submit");
+    setTodid("");
+    props.addTodid({
+      text: todidText,
+      iterations: Number(todiderations),
+      id: null,
+    });
+
+    event.preventDefault();
   };
 
   return (
-    <form onSubmit={handleSubmit} className={classes.root}>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        id="todidit"
-        label="What have you done?"
-        name="todidit"
-        autoFocus
-        onChange={handleChange}
-      />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className={classes.submit}
-      >
-        I did it!
-      </Button>
+    <form onSubmit={handleSubmit}>
+      <Box className={classes.root}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          id="newTodidText"
+          label="What have you done?"
+          name="newTodidText"
+          autoFocus
+          onChange={handleTextChange}
+          value={todidText}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          I todid it!
+        </Button>
+      </Box>
+      <Box className={classes.radioContainer}>
+        <FormLabel>How Many Times?</FormLabel>
+        <RadioGroup
+          row
+          aria-label="iterations"
+          name="iterations"
+          defaultValue="1"
+          value={todiderations}
+          onChange={handleRadioChange}
+        >
+          <FormControlLabel
+            value="1"
+            control={<Radio color="secondary" />}
+            label="Once"
+            labelPlacement="bottom"
+          />
+          <FormControlLabel
+            value="2"
+            control={<Radio color="secondary" />}
+            label="At least twice"
+            labelPlacement="bottom"
+          />
+          <FormControlLabel
+            value="5"
+            control={<Radio color="secondary" />}
+            label="More than five times"
+            labelPlacement="bottom"
+          />
+        </RadioGroup>
+      </Box>
     </form>
   );
 }

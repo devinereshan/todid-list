@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import { MoreHoriz } from "@material-ui/icons/";
 import { makeStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
@@ -37,7 +35,8 @@ export default function TodidItem(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (event) => {
+    console.log(event);
     setAnchorEl(null);
   };
 
