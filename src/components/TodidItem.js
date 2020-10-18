@@ -40,6 +40,11 @@ export default function TodidItem(props) {
     setAnchorEl(null);
   };
 
+  const handleRemove = () => {
+    props.removeTodid(props.todidID, props.todiderations);
+    setAnchorEl(null);
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -67,7 +72,7 @@ export default function TodidItem(props) {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Edit</MenuItem>
-            <MenuItem onClick={handleClose}>Remove</MenuItem>
+            <MenuItem onClick={handleRemove}>Remove</MenuItem>
           </Menu>
         </Paper>
       </Grid>

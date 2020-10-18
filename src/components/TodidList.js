@@ -23,63 +23,67 @@ const todidData = [
 ];
 
 export default function TodidList(props) {
-  // filter and format the todidData for rendering
+  // filter the todidData
   const [todidOnce, setTodidOnce] = useState(() =>
-    todidData
-      .filter((todid) => todid.todiderations === 1)
-      .map((todidit) => (
-        <TodidItem
-          text={`${todidit.text} ${todidit.id}`}
-          key={"id_" + todidit.id}
-        />
-      ))
-  );
-  const [todidTwice, setTodidTwice] = useState(() =>
-    todidData
-      .filter((todid) => todid.todiderations === 2)
-      .map((todidit) => (
-        <TodidItem
-          text={`${todidit.text} ${todidit.id}`}
-          key={"id_" + todidit.id}
-        />
-      ))
-  );
-  const [todidFiveTimes, setTodidFiveTimes] = useState(() =>
-    todidData
-      .filter((todid) => todid.todiderations === 5)
-      .map((todidit) => (
-        <TodidItem
-          text={`${todidit.text} ${todidit.id}`}
-          key={"id_" + todidit.id}
-        />
-      ))
+    todidData.filter((todid) => todid.todiderations === 1)
   );
 
-  const classes = useStyles();
+  const [todidTwice, setTodidTwice] = useState(() =>
+    todidData.filter((todid) => todid.todiderations === 2)
+  );
+
+  const [todidFiveTimes, setTodidFiveTimes] = useState(() =>
+    todidData.filter((todid) => todid.todiderations === 5)
+  );
 
   function addTodid(newTodid) {
     // temp id hack
     newTodid.id =
       todidOnce.length + todidTwice.length + todidFiveTimes.length + 1;
 
-    // format
-    let formattedTodid = (
-      <TodidItem
-        text={`${newTodid.text} ${newTodid.id}`}
-        key={"id_" + newTodid.id}
-      />
-    );
-
     if (newTodid.todiderations === 1) {
-      setTodidOnce((prev) => [...prev, formattedTodid]);
+      setTodidOnce((prev) => [...prev, newTodid]);
     } else if (newTodid.todiderations === 2) {
-      setTodidTwice((prev) => [...prev, formattedTodid]);
+      setTodidTwice((prev) => [...prev, newTodid]);
     } else if (newTodid.todiderations === 5) {
-      setTodidFiveTimes((prev) => [...prev, formattedTodid]);
+      setTodidFiveTimes((prev) => [...prev, newTodid]);
     }
   }
 
-  // prepare headers for existing categories...
+  function removeTodid(todidID, todiderations) {
+    if (todiderations === 1) {
+      setTodidOnce((prev) => prev.filter((todid) => todid.id !== todidID));
+    } else if (todiderations === 2) {
+      setTodidTwice((prev) => prev.filter((todid) => todid.id !== todidID));
+    } else if (todiderations === 5) {
+      setTodidFiveTimes((prev) => prev.filter((todid) => todid.id !== todidID));
+    }
+  }
+
+  function formatTodid(todid) {
+    return (
+      <TodidItem
+        text={todid.text}
+        key={"id_" + todid.id}
+        todidID={todid.id}
+        todiderations={todid.todiderations}
+        removeTodid={removeTodid}
+      />
+    );
+  }
+
+  function formatTodidData(data) {
+    return data.map((todid) => formatTodid(todid));
+  }
+
+  // format todidData for rendering
+  const TodidOnce = () => formatTodidData(todidOnce);
+  const TodidTwice = () => formatTodidData(todidTwice);
+  const TodidFiveTimes = () => formatTodidData(todidFiveTimes);
+
+  const classes = useStyles();
+
+  // prepare headers for existing categories
   const todidOnceHeader = todidOnce.length > 0 && (
     <TodidCategory todiderations={1} key={"cat_1"} />
   );
@@ -98,13 +102,13 @@ export default function TodidList(props) {
         </Typography>
         <AddItemForm addTodid={addTodid} />
         {todidOnceHeader}
-        {todidOnce.map((todid) => todid)}
+        <TodidOnce />
 
         {todidTwiceHeader}
-        {todidTwice.map((todid) => todid)}
+        <TodidTwice />
 
         {todidFiveTimesHeader}
-        {todidFiveTimes.map((todid) => todid)}
+        <TodidFiveTimes />
       </Paper>
     </Container>
   );

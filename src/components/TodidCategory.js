@@ -1,16 +1,16 @@
 import React from "react";
 
 export default function TodidCategory(props) {
-  if (props.iterations === 5) {
+  if (props.todiderations === 5) {
     return (
       <div style={{ marginTop: "20px" }}>
-        Things I've done more than five times:
+        Things I did more than five times:
       </div>
     );
-  } else if (props.iterations === 2) {
+  } else if (props.todiderations === 2) {
     return (
-      <div style={{ marginTop: "20px" }}>Things I've done at least twice:</div>
+      <div style={{ marginTop: "20px" }}>Things I did at least twice:</div>
     );
   }
-  return <div style={{ marginTop: "20px" }}>Things I've done once:</div>;
+  return <div style={{ marginTop: "20px" }}>Things I did once:</div>;
 }

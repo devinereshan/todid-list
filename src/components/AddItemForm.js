@@ -39,11 +39,10 @@ export default function AddItemForm(props) {
   };
 
   const handleSubmit = (event) => {
-    console.log("in handle submit");
     setTodid("");
     props.addTodid({
       text: todidText,
-      iterations: Number(todiderations),
+      todiderations: Number(todiderations),
       id: null,
     });
 
@@ -58,7 +57,7 @@ export default function AddItemForm(props) {
           margin="normal"
           required
           id="newTodidText"
-          label="What have you done?"
+          label="Tell us what you did!"
           name="newTodidText"
           autoFocus
           onChange={handleTextChange}
