@@ -11,7 +11,10 @@ import {
   responsiveFontSizes,
   ThemeProvider,
 } from "@material-ui/core";
+import UserTodidList from "./routes/UserTodidList";
 import UserHome from "./routes/UserHome";
+import UserAbout from "./routes/UserAbout";
+import UserSettings from "./routes/UserSettings";
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -28,6 +31,9 @@ function App() {
           {/* temporary */}
           <Route exact path="/todidlist" component={TodidList} />
           <Route exact path="/userhome" component={UserHome} />
+          <Route exact path="/usertodidlist" component={UserTodidList} />
+          <Route exact path="/userabout" component={UserAbout} />
+          <Route exact path="/usersettings" component={UserSettings} />
         </Switch>
       </Router>
     </ThemeProvider>

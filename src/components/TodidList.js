@@ -97,7 +97,7 @@ export default function TodidList(props) {
   return (
     <Container component="div" maxWidth="sm">
       <Paper variant="outlined" className={classes.paper}>
-        <Typography component="h1" variant="h2">
+        <Typography component="h1" variant="h3">
           Todid List
         </Typography>
         <AddItemForm addTodid={addTodid} />
