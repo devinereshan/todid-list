@@ -52,7 +52,7 @@ function ResponsiveRadioGroup(props) {
       name="iterations"
       defaultValue="1"
       value={props.todiderations}
-      onChange={props.handleRadioChange}
+      onChange={props.onChange}
     >
       {props.children}
     </RadioGroup>
